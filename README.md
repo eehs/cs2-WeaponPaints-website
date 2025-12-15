@@ -1,83 +1,56 @@
-# This repository has been discontinued.
-This repository has been closed in favor of a newer version; currently, only a demo version is available: https://next-sc.l1te.pw<br>
-It will be available in various plans in the future, including a free one, [here](https://github.com/L1teD/next-sc)<br>
+# Weapon Paints website
 
-## Weapon Paints website
+This website is used alongside my **[modified](https://github.com/eehs/cs2-WeaponPaints)** version of the [cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints) plugin. It exists to allow users to change weapon skins from the web instead of in-game commands. 
 
-Website used for the **[cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints/)** plugin
+## Features
+- Change knives, gloves, weapon skins, agents, and music kits
+- Per-team skin loadouts
+- Automatic refresh of weapon skins in-game
 
-<div>
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/1.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/2.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/3.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/4.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/5.png?raw=true" width="400">
-    <img src="https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/previews/6.png?raw=true" width="400">
-</div>
+## Installation
+#### Requirements:
+- [Node.JS](https://nodejs.org/en) >= 22.20.0
+- [NGINX](https://nginx.org/en/download.html)
+- My modified version of [WeaponPaints](https://github.com/eehs/cs2-WeaponPaints)
 
-Screenshots taken from private version
+#### 1. [WIP] **[Download latest release]()** and unpack it wherever you want.
+#### 2. Rename **`config.example.json`** to **`config.json`** and populate with your credentials as follows:
 
-#### Preview
-- Public: (not available atm)
-- Private: https://private-sc.l1te.pw/
-
-## If you want to use private, check this
-- **[See PRIVATE.md](https://github.com/L1teD/cs2-WeaponPaints-website/blob/main/PRIVATE.md)**
-# Installation
-Requirements:
-- [Node.JS](https://nodejs.org/en) 17^
-- [Nginx](https://nginx.org/ru/download.html)
-- [WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints) installed
-
-#### Step 1:
-
-**[Download latest release](https://github.com/L1teD/cs2-WeaponPaints-website/releases/latest/download/cs2-WeaponPaints-website-main.zip)**
-Unpack it wherever you want
-- Copy **`config.example.json`** to **`config.json`** and fill it:
-```json
+> [!IMPORTANT]
+> Make sure the database specified in the config is the same as the one in the WeaponPaints plugin. Otherwise the required database tables won't be created and the website won't work.
+```jsonc
 {
-    "name": "Title of your website",
-    "lang": "en/ru/pt-BR", 
+    "name": "<Title of your website>",
+    "lang": "<Language code>", // You get to choose from "en", "pt-BR", "ru" and "zh-CN" (for now)
     "DB": {
-        "host": "host",
-        "user": "username",
-        "password": "password",
-        "database": "table",
-        "port": 3306
+        "host": "<Your database hostname/ip>",
+        "user": "<Your database username>",
+        "password": "<Your database password>",
+        "database": "<Your database name>",
+        "port": 3306 // Default port number, change if needed
     },
-    "HOST": "example.com or localhost/127.0.0.1 (NOT https://something.com/)",
+    "HOST": "<Your website hostname/ip>", // Something like 'example.com' or 'localhost'/'127.0.0.1' (NOT 'https://something.com')
     "PROTOCOL": "https",
-    "PORT": 27275,
+    "PORT": 27275, // Change as you see fit
     "INTERNAL_HOST": "0.0.0.0",
-    "STEAMAPIKEY": "Your Steam Web API Key",
-    "SESSION_SECRET": "Some random and secure string containing letters, numbers and special characters like !@#$%^&*(). Atleast 32 chars long.",
-    "connect": {
-        "show": false,
-        "serverIp": "Server IP",
-        "serverPort": "Server Port",
-        "serverPassword": "Server Password"
-    },
-    "LOG_LEVEL": "info"
+    "STEAMAPIKEY": "<Your Steam Web API Key>",
+    "SESSION_SECRET": "<Some random and secure string containing letters, numbers and special characters like !@#$%^&*(). Atleast 32 chars long.>",
+    "LOG_LEVEL": "INFO" // Check (https://logging.apache.org/log4j/2.x/manual/customloglevels.html) for more logging options
 }
 ```
 
-- Make sure the database that you specified in the config is the same as in the WeaponPaints plugin. Otherwise the needed tables won't exist and the website won't work.
-
 - If you are running in docker or running some special server setup. You might encounter issues with the internal expressjs server. As its default running on 127.0.0.1. If you need to change this. You can do so via config option **`INTERNAL_HOST`** and set it to whatever interface you need. For most advanced use cases like reverse proxy 0.0.0.0 can be used.
 
-#### Step 2:
-Configure Nginx reverse proxy
-- In Nginx folder at `sites-enabled` folder create file `ws-site.conf`
-- Fill it like this:
+#### 3. Navigate to your Nginx configuration folder at `sites-enabled/` and create a config file (`'ws-site.conf'` or something else), then fill in the following:
 ```nginx
 server {
         listen 80;
-        listen 443 ssl; # Include this if you want SSL support! You wont usually need this if you plan on proxying through CF. 
+        listen 443 ssl; # Include this if you want SSL support!
 
-        # The domain or URL you want this to run SkinChanger off of.
+        # The domain or URL you want this to run SkinChanger off of
         server_name subdomain.example.com;
 
-        # NOTE: You'll want to change these to your own SSL certificate if any. You wont usually need this if you plan on proxying through CF.
+        # NOTE: You'll want to change these to your own SSL certificate if you have any
         ssl_certificate     /etc/letsencrypt/live/subdomain.example.com/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/subdomain.example.com/privkey.pem;
 
@@ -88,26 +61,28 @@ server {
                 proxy_set_header Host $http_host;
                 add_header Access-Control-Allow-Origin *;
                 proxy_redirect off;
-				# Change port in case you edited it in config.json
+                proxy_pass http://127.0.0.1:27275; # Adjust to website port number in config.json
+        }
+
+		location /socket.io/ {
+                proxy_http_version 1.1;
+                proxy_set_header Host $host;
+
+                # Switch from HTTP to WebSockets
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection $connection_upgrade;
+
                 proxy_pass http://127.0.0.1:27275;
         }
 }
 ```
 
-#### Step 3:
-Run app with following commands:
+#### 4. Install NodeJS dependencies and run app.
 ```bash
   npm i
   npm run dev
 ```
-And after all of this, site should be available at domain you configured in Nginx config
+#### 5. Enjoy!
 
-## Support me
-
-
-[![Steam donations](https://github.com/Nereziel/cs2-WeaponPaints/assets/32937653/a0d53822-4ca7-4caf-83b4-e1a9b5f8c94e)](https://steamcommunity.com/tradeoffer/new/?partner=1153616149&token=V-OXvmuV)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=L1teD/cs2-WeaponPaints-website&type=Date)](https://star-history.com/#L1teD/cs2-WeaponPaints-website&Date)
-
+# Credits
+- [L1teD](https://github.com/L1teD): The original author of this forked project.
