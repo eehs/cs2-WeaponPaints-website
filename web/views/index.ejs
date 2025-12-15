@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles/default.css">
-    <title>SkinChanger</title>
+    <title>Skin Changer</title>
 
     <link rel="stylesheet" href="css/fontawesome/all.min.css">
 
@@ -73,8 +73,8 @@
                             <ul class="dropdown-menu">
                                 
                                 <a class="dropdown-item text-danger" href="api/logout"><%= lang.navLogout %></a>
-                                <a class="dropdown-item text-danger" href="api/delete"><%= lang.navDelete %></a>
-                                <a class="dropdown-item text-warning d-block d-md-none" href="<%= config.connect.url %>"><small><%= lang.connect %></small></a>
+                                <!--<a class="dropdown-item text-danger" href="api/delete"><%= lang.navDelete %></a>-->
+                                <!--<a class="dropdown-item text-warning d-block d-md-none" href="<%= config.connect.url %>"><small><%= lang.connect %></small></a>-->
                             </ul>
                        
                 <% } %>
@@ -93,9 +93,9 @@
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.knives %></small></p>
             </button>
 
-            <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
-                <img src="icons/weapon_deagle.svg" style="filter: invert();" width="35px">
-                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.pistols %></small></p>
+            <button onclick="showGloves()" id="sideBtnGloves" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+                <i class="fa-solid fa-mitten ms-2 me-2 my-auto sideBtnI"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.gloves %></small></p>
             </button>
 
             <button onclick="showRifles()" id="sideBtnRifles" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
@@ -103,7 +103,12 @@
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.rifles %></small></p>
             </button>
 
-            <button onclick="showPPs()" id="sideBtnPPs" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+            <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+                <img src="icons/weapon_deagle.svg" style="filter: invert();" width="35px">
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.pistols %></small></p>
+            </button>
+
+            <button onclick="showSmgs()" id="sideBtnSmgs" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
                 <img src="icons/weapon_mac10.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.SMGs %></small></p>
             </button>
@@ -111,6 +116,26 @@
             <button onclick="showShotguns()" id="sideBtnShotguns" class="btn btn-primary my-1 mx-1 d-flex align-items-center">
                 <img src="icons/weapon_negev.svg" style="filter: invert();" width="35px">
                 <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.heavy %></small></p>
+            </button>
+
+            <button onclick="showUtility()" id="sideBtnUtility" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+                <i class="fa-solid fa-bomb ms-2 me-2 my-auto sideBtnI"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.utility %></small></p>
+            </button>
+
+            <button onclick="showCTAgents()" id="sideBtnCTAgents" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+                <i class="fa-solid fa-person-rifle ms-2 me-2 my-auto sideBtnI"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.ctAgents %></small></p>
+            </button>
+            
+            <button onclick="showTAgents()" id="sideBtnTAgents" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+                <i class="fa-solid fa-person-rifle ms-2 me-2 my-auto sideBtnI"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.tAgents %></small></p>
+            </button>
+
+            <button onclick="showMusic()" id="sideBtnMusic" class="btn btn-primary d-flex my-1 mx-1 align-items-center">
+                <i class="fa-solid fa-music ms-2 me-2 my-auto sideBtnI"></i>
+                <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.musicKits %></small></p>
             </button>
         </div>
         <div class="row">
@@ -127,18 +152,17 @@
                         <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.gloves %></small></p>
                     </button>
 
+                    <button onclick="showRifles()" id="sideBtnRifles" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
+                        <img src="icons/weapon_ak47.svg" class="sideBtnImg" width="35px">
+                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.rifles %></small></p>
+                    </button>
 
                     <button onclick="showPistols()" id="sideBtnPistols" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
                         <img src="icons/weapon_deagle.svg" class="sideBtnImg" width="35px">
                         <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.pistols %></small></p>
                     </button>
     
-                    <button onclick="showRifles()" id="sideBtnRifles" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
-                        <img src="icons/weapon_ak47.svg" class="sideBtnImg" width="35px">
-                        <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.rifles %></small></p>
-                    </button>
-    
-                    <button onclick="showPPs()" id="sideBtnPPs" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
+                    <button onclick="showSmgs()" id="sideBtnSmgs" class="btn btn-primary w-100 d-flex mb-2 align-items-center">
                         <img src="icons/weapon_mac10.svg" class="sideBtnImg" width="35px">
                         <p class="p-0 m-0 mx-auto"><small><%= lang.sideMenu.SMGs %></small></p>
                     </button>
@@ -171,7 +195,7 @@
 
             </div>
             <div class="col-mb-12 col-lg-10 mb-5">
-                <div class="row" id="skinsContainer">
+                <div class="row justify-content-center" id="skinsContainer">
 
                     <h3 class="text-center mt-5"><%= lang.selectCategory %></h3>
 
@@ -191,12 +215,11 @@
         <p class="text-decoration-none text-light m-0"><%= config.name %> | <%= new Date().getFullYear();%> </p>
         
         <!-- Please don't change this -->
-        <p class="m-0 text-secondary">Made by <a href="https://github.com/L1teD" class="text-secondary">L1te</a> @ <a href="https://github.com/L1teD/cs2-WeaponPaints-website" class="text-secondary">cs2-WeaponPaints-website</a></p>
+        <p class="m-0 text-secondary">Made by <a href="https://github.com/L1teD" target="_blank" class="text-secondary">L1te</a> and <a href="https://github.com/eehs" target="_blank" class="text-secondary">eehs</a> @ <a href="https://github.com/eehs/cs2-WeaponPaints-website" target="_blank" class="text-secondary">cs2-WeaponPaints-website</a></p>
     </div>
 
 </body>
 
-<script src="js/bootstrap/bootstrap.min.js"></script>
 <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
 
 <script src="socket.io/socket.io.js"></script>
@@ -205,24 +228,15 @@
 <script type="module" src="js/templates.js"></script>
 <script type="module" src="js/sideBtns.js"></script>
 
-
 <script>
     let lang = "<%- config.lang %>";
     let langObject = <%- JSON.stringify(lang) %>; 
-    let selectedKnife = {
-        knife: undefined,
-        steamid: undefined,
-    }
-    let selectedGloves = {
-        weapon_defindex: undefined,
-        steamid: undefined,
-    }
     let selectedAgents = {
         agent_ct: undefined,
         agent_t: undefined,
         steamid: undefined,
     }
-    let selectedMusic = {
+    let selectedMusicKit = {
         music_id: undefined,
         steamid: undefined,
     }
@@ -258,21 +272,9 @@ function updateFloatText(value) {
     }
 </script>
 
-<% if (typeof knife != 'undefined') { %>
-    <script>    
-        selectedKnife = <%- JSON.stringify(knife) %>;
-    </script>
-<% } %>
-
 <% if (typeof skins != 'undefined') { %>
     <script>    
         let selectedSkins = <%- JSON.stringify(skins) %>;
-    </script>
-<% } %>
-
-<% if (typeof gloves != 'undefined') { %>
-    <script>
-        selectedGloves = <%- JSON.stringify(gloves) %>;
     </script>
 <% } %>
 
@@ -284,7 +286,7 @@ function updateFloatText(value) {
 
 <% if (typeof music != 'undefined') { %>
     <script>
-        selectedMusic = <%- JSON.stringify(music) %>;
+        selectedMusicKit = <%- JSON.stringify(music) %>;
     </script>
 <% } %>
 
@@ -303,7 +305,5 @@ function updateFloatText(value) {
         updateFloatText(value);
     }
 </script>
-
-<script></script>
 
 </html>

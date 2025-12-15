@@ -2,18 +2,23 @@
 
 This website is used alongside my **[modified](https://github.com/eehs/cs2-WeaponPaints)** version of the [cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints) plugin. It exists to allow users to change weapon skins from the web instead of in-game commands. 
 
+<br>
+
 ## Features
 - Change knives, gloves, weapon skins, agents, and music kits
 - Per-team skin loadouts
 - Automatic refresh of weapon skins in-game
+
+<br>
 
 ## Installation
 #### Requirements:
 - [Node.JS](https://nodejs.org/en) >= 22.20.0
 - [NGINX](https://nginx.org/en/download.html)
 - My modified version of [WeaponPaints](https://github.com/eehs/cs2-WeaponPaints)
+- [rcon-cli](https://github.com/gorcon/rcon-cli/releases/latest) (for refreshing weapon skins automatically) ([fake-rcon](https://github.com/Salvatore-Als/cs2-fake-rcon) or a similar rcon workaround **MUST** be available on your CS2 server for this to work)
 
-#### 1. [WIP] **[Download latest release]()** and unpack it wherever you want.
+#### 1. Clone the repo.
 #### 2. Rename **`config.example.json`** to **`config.json`** and populate with your credentials as follows:
 
 > [!IMPORTANT]
@@ -21,7 +26,7 @@ This website is used alongside my **[modified](https://github.com/eehs/cs2-Weapo
 ```jsonc
 {
     "name": "<Title of your website>",
-    "lang": "<Language code>", // You get to choose from "en", "pt-BR", "ru" and "zh-CN" (for now)
+    "lang": "<Menu language>", // You get to choose from "en", "pt-BR", "ru" and "zh-CN" for now (skin names are still in English though)
     "DB": {
         "host": "<Your database hostname/ip>",
         "user": "<Your database username>",
@@ -77,12 +82,27 @@ server {
 }
 ```
 
-#### 4. Install NodeJS dependencies and run app.
+#### 4. Extract the `rcon` executable and `rcon.yaml` from [rcon-cli](https://github.com/gorcon/rcon-cli/releases/latest), then place them in the project's root directory.
+
+#### 5. Fill in your server rcon credentials in `rcon.yaml`.
+
+#### 6. Install NodeJS dependencies and run the web app.
 ```bash
   npm i
   npm run dev
 ```
-#### 5. Enjoy!
+
+#### 7. Enjoy!
+
+<br>
+
+# TODO
+- Add option for users to reset their inventories.
+- Customize weapons with StatTrak counter, nametag, stickers, charms, etc.
+- Support more languages for the website alongside their skin names (latter only available in English right now).
+- Add loadout presets/collections.
+
+<br>
 
 # Credits
 - [L1teD](https://github.com/L1teD): The original author of this forked project.

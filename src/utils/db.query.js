@@ -1,6 +1,6 @@
-const query = require('../database/db').query
-const config = require('../../config.json')
-const Logger = require('./logger')
+const query = require("../database/db").query
+const config = require("../../config.json")
+const Logger = require("./logger")
 
 let langObj = require(`../lang/${config.lang}.json`)
 

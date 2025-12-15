@@ -1,7 +1,7 @@
 const socket = io()
 
-let currentWeaponId = ''
-let currentPaintId = ''
+let currentWeaponId = ""
+let currentPaintId = ""
 
 
 function getKeyByValue(object, value) {
@@ -102,13 +102,21 @@ const weaponIds = {
     "studded_hydra_gloves": 5035
 }
 
-const editModal = (img, weaponName, paintName, weaponId, paintId) => {
-    document.getElementById('modalImg').src = img
-    document.getElementById('modalWeapon').innerText = weaponName
-    document.getElementById('modalPaint').innerText = paintName
+const editModal = (img, weaponName, paintName, float, seed, weaponId, paintId) => {
+    document.getElementById("modalImg").src = img
+    document.getElementById("modalWeapon").innerText = weaponName
+    document.getElementById("modalPaint").innerText = paintName
+
+    // Load updated weapon skin parameters when opening pop-up to change skin parameters
+    const floatValue = parseFloat(Number(float).toFixed(6))
+    document.getElementById("floatSlider").value = floatValue
+    document.getElementById("float").value = floatValue
+    updateFloatText(floatValue)
+
+    document.getElementById("pattern").value = seed
+
     currentWeaponId = weaponIds[weaponId]
     currentPaintId = paintId
-    console.log(img, weaponName, paintName, currentWeaponId, currentPaintId)
 }
 
 const changeParams = () => {
@@ -116,18 +124,43 @@ const changeParams = () => {
     let weaponid = currentWeaponId
     let paintid = currentPaintId
     let float = document.getElementById("float").value
-    let pattern = document.getElementById("pattern").value
+    let seed = document.getElementById("pattern").value
 
-    document.getElementById('modalButton').innerHTML = 
+    let teamid = 0;
+    if (document.body.contains(document.getElementById(`equip-t-${paintid}`))) {
+        if (document.getElementById(`equip-t-${paintid}`).checked) {
+	    teamid = 2;
+	} else if (document.getElementById(`equip-ct-${paintid}`).checked) {
+	    teamid = 3;
+	}
+
+	if (document.getElementById(`equip-t-${paintid}`).checked && document.getElementById(`equip-ct-${paintid}`).checked) {
+	    teamid = 0;
+	}
+    }
+
+    document.getElementById("modalButton").innerHTML = 
         `
             <div class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         `
 
-    socket.emit('change-params', {steamid: steamid, weaponid: weaponid, paintid: paintid, float: float, pattern: pattern})
+    socket.emit("change-params", {steamid: steamid, weaponid: weaponid, paintid: paintid, teamid: teamid, float: float, seed: seed})
 }
 
-socket.on('params-changed', () => {
-    document.getElementById('modalButton').innerHTML = langObject.change
+socket.on("params-changed", data => {
+    document.getElementById("modalButton").innerHTML = langObject.change
+
+    document.getElementById("floatSlider").value = data.float
+    document.getElementById("float").value = data.float
+    updateFloatText(data.float)
+    
+    document.getElementById("pattern").value = data.seed
+
+    if (document.body.contains(document.getElementById(`equip-t-${currentPaintId}`))) {
+        changeSkin(data.weaponid, data.paintid, data.teamid.weapon_team)
+    } else {
+        changeSkin(data.weaponid, data.paintid)
+    }
 })

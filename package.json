@@ -29,9 +29,10 @@
     "node-machine-id": "^1.1.12",
     "passport": "0.7.0",
     "passport-steam": "^1.0.18",
+    "popper.js": "^1.16.1",
     "request": "^2.88.2",
     "session-file-store": "^1.5.0",
-    "socket.io": "^4.7.2"
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "big-json": "^3.2.0",
@@ -39,7 +40,7 @@
     "javascript-obfuscator": "^4.1.0",
     "nexe": "^4.0.0-rc.4",
     "node-archiver": "^0.3.0",
-    "nodemon": "^3.0.1",
+    "nodemon": "^3.1.10",
     "pkg": "^5.8.1",
     "zip-a-folder": "^3.1.6"
   }
