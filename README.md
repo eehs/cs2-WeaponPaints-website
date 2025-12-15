@@ -2,6 +2,15 @@
 
 This website is used alongside my **[modified](https://github.com/eehs/cs2-WeaponPaints)** version of the [cs2-WeaponPaints](https://github.com/Nereziel/cs2-WeaponPaints) plugin. It exists to allow users to change weapon skins from the web instead of in-game commands. 
 
+<div>
+    <img src="https://github.com/eehs/cs2-WeaponPaints-website/blob/main/previews/knives.png?raw=true" width="400">
+    <img src="https://github.com/eehs/cs2-WeaponPaints-website/blob/main/previews/flip_knife_menu.png?raw=true" width="400">
+    <img src="https://github.com/eehs/cs2-WeaponPaints-website/blob/main/previews/gloves.png?raw=true" width="400">
+    <img src="https://github.com/eehs/cs2-WeaponPaints-website/blob/main/previews/pistols.png?raw=true" width="400">
+    <img src="https://github.com/eehs/cs2-WeaponPaints-website/blob/main/previews/deagle_menu.png?raw=true" width="400">
+    <img src="https://github.com/eehs/cs2-WeaponPaints-website/blob/main/previews/deagle_skin_params.png?raw=true" width="400">
+</div>
+
 <br>
 
 ## Features
