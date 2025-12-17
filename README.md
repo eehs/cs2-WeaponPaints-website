@@ -116,6 +116,7 @@ server {
 <br>
 
 # TODO
+- Skin selection logic for gloves can cause a crash in some cases, fix ASAP.
 - Add option for users to reset their inventories (with confirmation).
 - Combine selection of T and CT agents in the weapons menu.
 - Customize weapons with StatTrak counter, nametag, stickers, charms, etc.
