@@ -271,9 +271,9 @@ window.changeGlovesSkinTemplate = (gloves, langObject) => {
         </a>
 	<div class="mx-auto d-flex flex-column">
 		<div class="btn-group" role="group" data-bs-title="Choose a skin first!">
-			<input onclick="changeGloves(\'${gloves.weapon_name}\', 2)" type="checkbox" class="btn-check" id="equip-t-${gloves.weapon_defindex}" autocomplete="off">
+			<input onclick="changeGloves(\'${gloves.weapon_name}\', 2); event.stopPropagation()" type="checkbox" class="btn-check" id="equip-t-${gloves.weapon_defindex}" autocomplete="off">
 			<label class="btn btn-outline-warning mx-auto my-2 unchecked-hover-effect" for="equip-t-${gloves.weapon_defindex}" title="Equip to T loadout" style="border: 1px solid #363636; border-right: none"><small><img class="t-logo team-logo"></img></small></label>
-			<input onclick="changeGloves(\'${gloves.weapon_name}\', 3)" type="checkbox" class="btn-check" id="equip-ct-${gloves.weapon_defindex}" autocomplete="off">
+			<input onclick="changeGloves(\'${gloves.weapon_name}\', 3); event.stopPropagation()" type="checkbox" class="btn-check" id="equip-ct-${gloves.weapon_defindex}" autocomplete="off">
 			<label class="btn btn-outline-primary mx-auto my-2 unchecked-hover-effect" for="equip-ct-${gloves.weapon_defindex}" title="Equip to CT loadout" style="border: 1px solid #363636"><small><img class="ct-logo team-logo"></img></small></label>
 		</div>
         	<button onclick="showSkins(\'${gloves.weapon_name}\')" class="btn btn-primary text-warning mx-auto my-2" style="z-index: 1;"><small>${langObject.changeSkin}</small></button>
