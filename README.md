@@ -36,6 +36,7 @@ This website is used alongside my **[modified](https://github.com/eehs/cs2-Weapo
 {
     "name": "<Title of your website>",
     "lang": "<Menu language>", // You get to choose from "en", "pt-BR", "ru" and "zh-CN" for now (skin names are still in English though)
+
     "DB": {
         "host": "<Your database hostname/ip>",
         "user": "<Your database username>",
@@ -43,13 +44,22 @@ This website is used alongside my **[modified](https://github.com/eehs/cs2-Weapo
         "database": "<Your database name>",
         "port": 3306 // Default port number, change if needed
     },
+
     "HOST": "<Your website hostname/ip>", // Something like 'example.com' or 'localhost'/'127.0.0.1' (NOT 'https://something.com')
     "PROTOCOL": "https",
     "PORT": 27275, // Change as you see fit
     "INTERNAL_HOST": "0.0.0.0",
     "STEAMAPIKEY": "<Your Steam Web API Key>",
     "SESSION_SECRET": "<Some random and secure string containing letters, numbers and special characters like !@#$%^&*(). Atleast 32 chars long.>",
-    "LOG_LEVEL": "INFO" // Check (https://logging.apache.org/log4j/2.x/manual/customloglevels.html) for more logging options
+    "LOG_LEVEL": "INFO", // Check (https://logging.apache.org/log4j/2.x/manual/customloglevels.html) for more logging options
+
+    // Server connection details below are made available to your website users
+    "connect": {
+        "show": false,
+        "serverIp": "<Server IP>",
+        "serverPort": "<Server port>",
+        "serverPassword": "<Server password>"
+    }
 }
 ```
 
@@ -106,7 +116,8 @@ server {
 <br>
 
 # TODO
-- Add option for users to reset their inventories.
+- Add option for users to reset their inventories (with confirmation).
+- Combine selection of T and CT agents in the weapons menu.
 - Customize weapons with StatTrak counter, nametag, stickers, charms, etc.
 - Support more languages for the website alongside their skin names (latter only available in English right now).
 - Add loadout presets/collections.

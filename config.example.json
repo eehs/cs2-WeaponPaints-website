@@ -1,18 +1,27 @@
 {
     "name": "<Title of your website>",
     "lang": "<Menu language>",
+
     "DB": {
-        "host": "<Your database hostname/ip>",
+        "host": "<Your database hostname/IP>",
         "user": "<Your database username>",
         "password": "<Your database password>",
         "database": "<Your database name>",
         "port": 3306
     },
-    "HOST": "<Your website hostname/ip>",
+
+    "HOST": "<Your website hostname/IP>",
     "PROTOCOL": "https",
     "PORT": 27275,
     "INTERNAL_HOST": "0.0.0.0",
     "STEAMAPIKEY": "<Your Steam Web API Key>",
     "SESSION_SECRET": "<Some random and secure string containing letters, numbers and special characters like !@#$%^&*(). Atleast 32 chars long.>",
-    "LOG_LEVEL": "INFO"
+    "LOG_LEVEL": "INFO",
+
+    "connect": {
+        "show": false,
+        "serverIp": "<Server IP>",
+        "serverPort": "<Server port>",
+        "serverPassword": "<Server password>"
+    }
 }
