@@ -29,7 +29,17 @@
 }
 
 html {
-  scroll-behavior: auto !important;
+    scroll-behavior: auto !important;
+}
+
+nav {
+    position: sticky !important;
+    top: 0;
+    z-index: 2;
+}
+
+#weaponsMenu {
+    position: fixed;
 }
 
 .slider {
@@ -264,7 +274,7 @@ li {
 }
 
 .t-logo {
-    content: url(/skinchanger/icons/t-logo.png)
+    content: url(/icons/t-logo.png)
 }
 
 .btn-outline-primary {
@@ -272,7 +282,7 @@ li {
 }
 
 .ct-logo {
-    content: url(/skinchanger/icons/ct-logo.png)
+    content: url(/icons/ct-logo.png)
 }
 
 .unchecked-hover-effect:hover {
