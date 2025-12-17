@@ -422,8 +422,8 @@ socket.on("team-knives-retrieved", data => {
 })
 
 socket.on("knife-changed", data => {
-    document.getElementById(`loading-${data.newKnife}`).style.opacity = 0
-    document.getElementById(`loading-${data.newKnife}`).style.visibility = "hidden"
+    document.getElementById(`loading-${data.newKnifeName}`).style.opacity = 0
+    document.getElementById(`loading-${data.newKnifeName}`).style.visibility = "hidden"
 
     // Player is equipping a knife to the other team whilst already having it equipped to one team
     if (data.oldKnivesWithTeamId.length == 1) {
@@ -496,7 +496,7 @@ socket.on("team-gloves-retrieved", data => {
 })
 
 socket.on("gloves-changed", data => {
-    const gloves = getKeyByValue(weaponIds, data.newGloves)
+    const gloves = getKeyByValue(weaponIds, data.newGlovesId)
 
     document.getElementById(`loading-${gloves}`).style.opacity = 0
     document.getElementById(`loading-${gloves}`).style.visibility = "hidden"
@@ -578,7 +578,7 @@ socket.on("skin-changed", data => {
             showSkins(getKeyByValue(weaponIds, updatedSkin.weapon_defindex))
         }
     } else {
-        // Reload weapons menu
+        // Exit weapon skin menu and return to previous menu (a.k.a 'reload')
         document.querySelectorAll(".active-side")[0].onclick()
 
 	// Take weapon skin from opposite team when re-equipping skin to team with empty skin
@@ -633,17 +633,17 @@ socket.on("gloves-reset", data => {
 })
 
 socket.on("skin-reset", data => {
-    const weapon_name = getKeyByValue(weaponIds, data.weaponid)
+    const weaponName = getKeyByValue(weaponIds, Number(data.weaponid))
 
-    const skinImg = document.getElementById(`img-${weapon_name}`)
+    const skinImg = document.getElementById(`img-${weaponName}`)
     if (skinImg != null) {
         skinImg.src = skinImg.alt
         skinImg.style.filter = ""
         skinImg.style = "object-fit: contain; aspect-ratio: 512 / 384"
 
-        document.getElementById(`reset-${weapon_name}`).outerHTML = ""
-        document.getElementById(`skin-title-${weapon_name}`).innerHTML = "Default"
-        document.getElementById(`skin-title-${weapon_name}`).style = "color: rgb(108, 127, 125); font-size: 0.93rem"
+        document.getElementById(`reset-${weaponName}`).outerHTML = ""
+        document.getElementById(`skin-title-${weaponName}`).innerHTML = "Default"
+        document.getElementById(`skin-title-${weaponName}`).style = "color: rgb(108, 127, 125); font-size: 0.93rem"
     }
 
     // Update array of selected skins
@@ -661,12 +661,12 @@ socket.on("skin-reset", data => {
     let weaponType = "gun"
     defaultsObject.forEach(weapon => {
         if (weapon.weapon_type == "sfui_invpanel_filter_melee") {
-	    if (weapon.weapon_name == weapon_name) {
+	    if (weapon.weapon_name == weaponName) {
 		weaponType = "knife"
 		return true
 	    } 
 	} else if (weapon.weapon_type == "sfui_invpanel_filter_gloves") {
-	    if (weapon.weapon_name == weapon_name) {
+	    if (weapon.weapon_name == weaponName) {
 		weaponType = "gloves"
 		return true
 	    }
@@ -674,13 +674,13 @@ socket.on("skin-reset", data => {
     })
 
     // Delete secondary weapon skin image and restore to default image
-    const secondarySkin = document.getElementById(`${weapon_name}-secondary-skin`)
+    const secondarySkin = document.getElementById(`${weaponName}-secondary-skin`)
     if (secondarySkin) {
         secondarySkin.parentNode.remove()
         secondarySkin.remove()
 
-	let defaultSkinData = null;
-        Object.keys(defaultsObject).forEach(x => defaultSkinData = defaultsObject[x].weapon_defindex === `${data.weaponid}` ? defaultsObject[x] : defaultSkinData)
+        let defaultSkinData = null;
+        Object.keys(defaultsObject).forEach(x => defaultSkinData = defaultsObject[x].weapon_defindex === data.weaponid ? defaultsObject[x] : defaultSkinData)
 
 	if (defaultSkinData != null) {
 	    let defaultSkinCard = document.createElement("a")
@@ -695,19 +695,17 @@ socket.on("skin-reset", data => {
 		</div>
 	    `
 
-            document.getElementById(`loading-${weapon_name}`).insertAdjacentElement("afterend", defaultSkinCard)
-	    document.getElementById(`${weapon_name}`).parentNode.classList.replace("col-md-5", "col-sm-4")
+            document.getElementById(`loading-${weaponName}`).insertAdjacentElement("afterend", defaultSkinCard)
+	    document.getElementById(`${weaponName}`).parentNode.classList.replace("col-md-5", "col-sm-4")
 	}
     } else {
-	if (weapon_name) {
-            document.getElementById(`${weapon_name}`).children[1].classList.replace("flex-row", "flex-column")
-	} else {
-            // Reload weapons menu
-            document.querySelectorAll(".active-side")[0].onclick()
+	if (!data.weaponSkinsLeft && data.teamid != 0 && document.getElementById(`equip-t-${weaponName}`) == null) {
+            showSkins(weaponName, true)
+            window.scrollTo(0, sessionStorage.getItem("last_scrolled_position"))
 	}
     }
 
-    const weaponId = (weaponType == "gloves") ? data.weaponid : (weaponType == "gun") ? weapon_name : "";
+    const weaponId = (weaponType == "gloves") ? data.weaponid : (weaponType == "gun") ? weaponName : "";
     const equipAsT = document.getElementById(`equip-t-${weaponId}`)
     const equipAsCT = document.getElementById(`equip-ct-${weaponId}`)
 

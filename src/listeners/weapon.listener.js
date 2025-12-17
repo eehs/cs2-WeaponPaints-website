@@ -82,7 +82,7 @@ module.exports = (io, socket) => {
 	    }
         }
 
-        socket.emit("knife-changed", {oldKnivesWithTeamId: oldKnivesWithTeamId, newKnife: data.knifename})
+        socket.emit("knife-changed", {oldKnivesWithTeamId: oldKnivesWithTeamId, newKnifeName: data.knifename})
 	
         refreshWeaponsInServer(data.steamid, data.teamid, data.knifeid);
     }
@@ -140,7 +140,7 @@ module.exports = (io, socket) => {
 	    }
         }
 
-        socket.emit("gloves-changed", {oldGlovesWithTeamId: oldGlovesWithTeamId, newGloves: data.glovesid})
+        socket.emit("gloves-changed", {oldGlovesWithTeamId: oldGlovesWithTeamId, newGlovesId: data.glovesid})
 	
 	refreshWeaponsInServer(data.steamid, data.teamid, data.glovesid);
     }
@@ -269,7 +269,9 @@ module.exports = (io, socket) => {
             await query(`DELETE FROM wp_player_skins WHERE steamid = ${data.steamid} AND weapon_defindex = ${data.weaponid}`)
 	}
 
-        socket.emit("skin-reset", {weaponid: data.weaponid})
+	const weaponSkinsLeft = await query(`SELECT * FROM wp_player_skins WHERE steamid = ${data.steamid} AND weapon_defindex = ${data.weaponid}`)
+
+        socket.emit("skin-reset", {weaponid: data.weaponid, teamid: data.teamid, weaponSkinsLeft: weaponSkinsLeft.length})
         refreshWeaponsInServer(data.steamid, data.teamid, data.weaponid);
     }
 
